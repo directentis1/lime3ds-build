@@ -9,9 +9,12 @@ RUN useradd -m -u 1027 -s /bin/bash lime
 RUN apt-get update && apt-get -y full-upgrade
 
 # Add LLVM repo
-RUN echo "deb http://apt.llvm.org/bookworm/ llvm-toolchain-bookworm-18 main" >> /etc/apt/sources.list
+RUN echo "deb http://apt.llvm.org/bullseye/ llvm-toolchain-bullseye-18 main" >> /etc/apt/sources.list
 RUN apt-get install -y gnupg wget
 RUN wget -O - https://apt.llvm.org/llvm-snapshot.gpg.key | apt-key add -
+
+# Add Debian Bullseye backport
+RUN echo -e "#Add Backport\ndeb http://deb.debian.org/debian bullseye-backports main" >> /etc/apt/sources.list
 RUN apt-get update
 
 # Install package dependencies
